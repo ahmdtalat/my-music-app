@@ -14,7 +14,7 @@ const s = StyleSheet.create({
 		height: 70,
 		justifyContent: 'center',
 		alignItems: 'center',
-		backgroundColor: '#333'
+		backgroundColor: '#02111B'
 	},
 	headerText: {
 		marginTop: 20,

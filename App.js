@@ -1,5 +1,10 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import {
+	StyleSheet,
+	Keyboard,
+	TouchableWithoutFeedback,
+	View
+} from 'react-native';
 import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
 
@@ -10,16 +15,19 @@ const getFonts = () =>
 	});
 
 import Header from './components/header';
+import Search from './components/search';
 
 export default function App() {
 	const [fontLoaded, setFontLoaded] = useState(false);
 
 	if (fontLoaded) {
 		return (
-			<View>
-				<Header />
-				<View style={styles.container}></View>
-			</View>
+			<TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+				<View style={styles.container}>
+					<Header />
+					<Search />
+				</View>
+			</TouchableWithoutFeedback>
 		);
 	} else {
 		return (
@@ -31,6 +39,6 @@ export default function App() {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: '#fff'
+		backgroundColor: '#223'
 	}
 });
