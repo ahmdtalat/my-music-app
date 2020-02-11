@@ -8,19 +8,17 @@ import {
 } from 'react-native';
 
 import Track from './track.js';
+import { API } from '../config';
 
 const SongList = () => {
 	const [tracks, setTracks] = useState(null);
 
 	async function fetchData() {
-		const response = await fetch(
-			'https://api.deezer.com/user/2529/playlists?limit=10',
-			{
-				headers: {
-					'Content-Type': 'application/json'
-				}
+		const response = await fetch(API, {
+			headers: {
+				'Content-Type': 'application/json'
 			}
-		);
+		});
 		const res = await response.json();
 		const { data } = res;
 		setTracks(data);
