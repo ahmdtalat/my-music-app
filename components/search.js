@@ -5,6 +5,7 @@ import { FontAwesome } from '@expo/vector-icons';
 
 const Search = () => {
 	const [q, setQ] = useState('');
+	const [placeHolder, setPlaceHolder] = useState('Search');
 
 	const handlePress = () => {
 		// Todo: implement search functionality
@@ -17,10 +18,14 @@ const Search = () => {
 			<TextInput
 				value={q}
 				onChangeText={text => setQ(text)}
-				placeholder='Search'
+				placeholder={placeHolder}
 				placeholderTextColor='green'
+				onSubmitEditing={() => {
+					setQ('');
+				}}
+				onFocus={() => setPlaceHolder('')}
+				onBlur={() => setPlaceHolder('Search')}
 				style={s.input}
-				onSubmitEditing={() => setQ('')}
 			/>
 			<FontAwesome
 				name='search'
