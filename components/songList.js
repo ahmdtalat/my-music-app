@@ -49,6 +49,7 @@ const SongList = () => {
 				<FlatList
 					data={tracks}
 					keyExtractor={track => `${track.id}`}
+					initialNumToRender={10}
 					renderItem={({ item }) => (
 						<TouchableOpacity>
 							<Track track={item} />

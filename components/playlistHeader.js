@@ -4,22 +4,24 @@ import { FontAwesome } from '@expo/vector-icons';
 
 const PlayListHeader = ({ playlist }) => {
 	const { title, duration, nb_tracks, name } = playlist;
+	const hours = Math.floor(duration / 3600);
+	const mins = Math.floor((duration % 3600) / 60);
 
 	return (
 		<TouchableOpacity>
 			<View style={s.playlist}>
 				<View>
-					<Text style={s.info}>playlist: {title}</Text>
 					<Text style={s.info}>
 						<FontAwesome name='user' size={16} color='green' /> {name}
 					</Text>
+					<Text style={s.info}>playlist: {title}</Text>
 				</View>
 				<View>
-					<Text style={s.info}>track: {nb_tracks}</Text>
 					<Text style={s.info}>
 						<FontAwesome name='hourglass-start' size={16} color='green' />{' '}
-						{duration / 60} min
+						{`${hours}:${mins} hrs`}
 					</Text>
+					<Text style={s.info}>tracks: {nb_tracks}</Text>
 				</View>
 			</View>
 		</TouchableOpacity>
