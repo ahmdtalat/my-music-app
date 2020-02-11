@@ -18,7 +18,9 @@ const Search = () => {
 				value={q}
 				onChangeText={text => setQ(text)}
 				placeholder='Search'
+				placeholderTextColor='green'
 				style={s.input}
+				onSubmitEditing={() => setQ('')}
 			/>
 			<FontAwesome
 				name='search'
@@ -38,7 +40,7 @@ const s = StyleSheet.create({
 	},
 	input: {
 		height: 50,
-		marginTop: 10,
+		marginVertical: 10,
 		paddingVertical: 10,
 		paddingHorizontal: 20,
 		backgroundColor: '#02111B',
