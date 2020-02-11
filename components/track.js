@@ -1,17 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
-import { FontAwesome } from '@expo/vector-icons';
+import { FontAwesome, Ionicons } from '@expo/vector-icons';
 
-const Track = ({ track }) => {
+import { getTime } from './util';
+
+const Track = ({ track, playing }) => {
 	const {
 		title_short,
 		duration,
 		artist: { name },
 		album: { cover }
 	} = track;
-	const mins = Math.floor(duration / 60);
-	const secs = duration - mins * 60;
-	const fSecs = secs < 10 ? `0${secs}` : secs;
+	const { mins, fSecs } = getTime(duration);
+
 	return (
 		<View style={s.track}>
 			{!cover ? (
@@ -28,7 +29,14 @@ const Track = ({ track }) => {
 				<Text style={s.title}>{title_short}</Text>
 				<Text style={s.artist}>{name || 'unknown'}</Text>
 			</View>
-			<Text style={s.duration}>{`${mins}:${fSecs} min`}</Text>
+			{playing ? (
+				<View style={{ alignItems: 'center' }}>
+					<Text style={s.duration}>{`${mins}:${fSecs} min`}</Text>
+					<Ionicons name='md-musical-note' size={36} color='green' />
+				</View>
+			) : (
+				<Text style={s.duration}>{`${mins}:${fSecs} min`}</Text>
+			)}
 		</View>
 	);
 };

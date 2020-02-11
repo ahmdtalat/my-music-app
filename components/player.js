@@ -63,7 +63,7 @@ const Player = () => {
 				</TouchableOpacity>
 			</View>
 			<View style={s.info}>
-				<Text style={{ fontSize: 16, color: '#0A474D', width: '70%' }}>
+				<Text style={{ fontSize: 16, color: '#0A474D', width: '65%' }}>
 					{title_short}
 				</Text>
 				<Text style={{ fontSize: 16, color: '#0A474D' }}>{name}</Text>

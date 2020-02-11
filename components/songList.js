@@ -4,8 +4,7 @@ import {
 	FlatList,
 	TouchableOpacity,
 	StyleSheet,
-	ActivityIndicator,
-	Text
+	ActivityIndicator
 } from 'react-native';
 
 import { PlayerContext } from './context';
@@ -13,7 +12,9 @@ import Track from './track.js';
 import PlayListHeader from './playlistHeader';
 
 const SongList = () => {
-	const { tracks, playList, handleCurrentTrack } = useContext(PlayerContext);
+	const { tracks, playList, handleCurrentTrack, currentTrack } = useContext(
+		PlayerContext
+	);
 
 	return (
 		<View style={s.list}>
@@ -25,7 +26,7 @@ const SongList = () => {
 					initialNumToRender={10}
 					renderItem={({ item }) => (
 						<TouchableOpacity onPress={() => handleCurrentTrack(item)}>
-							<Track track={item} />
+							<Track track={item} playing={currentTrack.id === item.id} />
 						</TouchableOpacity>
 					)}
 				/>

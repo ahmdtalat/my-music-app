@@ -6,6 +6,7 @@ const PlayerContext = createContext();
 
 const PlayerProvider = props => {
 	const [currentTrack, setCurrentTrack] = useState({
+		id: '',
 		title_short: '',
 		duration: 0,
 		name: ''
@@ -39,8 +40,14 @@ const PlayerProvider = props => {
 		};
 	}, []);
 
-	const handleCurrentTrack = ({ title_short, duration, artist: { name } }) => {
+	const handleCurrentTrack = ({
+		id,
+		title_short,
+		duration,
+		artist: { name }
+	}) => {
 		const curr = {
+			id,
 			title_short,
 			duration,
 			name
