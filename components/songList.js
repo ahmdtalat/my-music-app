@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 import {
 	View,
 	FlatList,
@@ -8,39 +8,12 @@ import {
 	Text
 } from 'react-native';
 
+import { PlayerContext } from './context';
 import Track from './track.js';
 import PlayListHeader from './playlistHeader';
-import { API } from '../config';
 
 const SongList = () => {
-	const [tracks, setTracks] = useState(null);
-	const [playList, setPlayList] = useState({});
-
-	async function fetchData() {
-		const response = await fetch(API, {
-			headers: {
-				'Content-Type': 'application/json'
-			}
-		});
-		const res = await response.json();
-		const {
-			title,
-			duration,
-			nb_tracks,
-			creator: { name },
-			tracks: { data }
-		} = res;
-		setTracks(data);
-		setPlayList({ name, title, duration, nb_tracks });
-	}
-
-	useEffect(() => {
-		fetchData();
-		return () => {
-			setTracks(null);
-			setPlayList({});
-		};
-	}, []);
+	const { tracks, playList, handleCurrentTrack } = useContext(PlayerContext);
 
 	return (
 		<View style={s.list}>
@@ -51,7 +24,7 @@ const SongList = () => {
 					keyExtractor={track => `${track.id}`}
 					initialNumToRender={10}
 					renderItem={({ item }) => (
-						<TouchableOpacity>
+						<TouchableOpacity onPress={() => handleCurrentTrack(item)}>
 							<Track track={item} />
 						</TouchableOpacity>
 					)}

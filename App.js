@@ -8,22 +8,27 @@ import {
 import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
 
+import { PlayerProvider } from './components/context';
 import Header from './components/header';
 import Search from './components/search';
 import SongList from './components/songList';
+import Player from './components/player';
 
 export default function App() {
 	const [fontLoaded, setFontLoaded] = useState(false);
 
 	if (fontLoaded) {
 		return (
-			<TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-				<View style={styles.container}>
-					<Header />
-					<Search />
-					<SongList />
-				</View>
-			</TouchableWithoutFeedback>
+			<PlayerProvider>
+				<TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+					<View style={styles.container}>
+						<Header />
+						<Search />
+						<SongList />
+						<Player />
+					</View>
+				</TouchableWithoutFeedback>
+			</PlayerProvider>
 		);
 	} else {
 		return (
