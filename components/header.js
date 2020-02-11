@@ -4,7 +4,7 @@ import { View, StyleSheet, Text } from 'react-native';
 const Header = () => {
 	return (
 		<View style={s.header}>
-			<Text style={s.headerText}>My Music</Text>
+			<Text style={s.headerText}>My Musica</Text>
 		</View>
 	);
 };
@@ -18,7 +18,7 @@ const s = StyleSheet.create({
 	},
 	headerText: {
 		marginTop: 20,
-		color: '#eee',
+		color: '#999',
 		fontSize: 22,
 		letterSpacing: 1.2,
 		fontFamily: 'lora-italic'

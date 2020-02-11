@@ -4,14 +4,17 @@ import {
 	FlatList,
 	TouchableOpacity,
 	StyleSheet,
-	ActivityIndicator
+	ActivityIndicator,
+	Text
 } from 'react-native';
 
 import Track from './track.js';
+import PlayListHeader from './playlistHeader';
 import { API } from '../config';
 
 const SongList = () => {
 	const [tracks, setTracks] = useState(null);
+	const [playList, setPlayList] = useState({});
 
 	async function fetchData() {
 		const response = await fetch(API, {
@@ -20,19 +23,28 @@ const SongList = () => {
 			}
 		});
 		const res = await response.json();
-		const { data } = res;
+		const {
+			title,
+			duration,
+			nb_tracks,
+			creator: { name },
+			tracks: { data }
+		} = res;
 		setTracks(data);
+		setPlayList({ name, title, duration, nb_tracks });
 	}
 
 	useEffect(() => {
 		fetchData();
 		return () => {
 			setTracks(null);
+			setPlayList({});
 		};
 	}, []);
 
 	return (
 		<View style={s.list}>
+			{tracks && <PlayListHeader playlist={playList} />}
 			{tracks ? (
 				<FlatList
 					data={tracks}
@@ -53,8 +65,8 @@ const SongList = () => {
 const s = StyleSheet.create({
 	list: {
 		flex: 1,
-		alignItems: 'center',
-		justifyContent: 'center'
+		justifyContent: 'center',
+		marginHorizontal: 15
 	}
 });
 export default SongList;
