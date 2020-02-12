@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import {
 	View,
 	FlatList,
-	TouchableOpacity,
+	TouchableHighlight,
 	StyleSheet,
 	ActivityIndicator
 } from 'react-native';
@@ -23,11 +23,11 @@ const SongList = () => {
 				<FlatList
 					data={tracks}
 					keyExtractor={track => `${track.id}`}
-					initialNumToRender={10}
+					maxToRenderPerBatch={6}
 					renderItem={({ item }) => (
-						<TouchableOpacity onPress={() => handleCurrentTrack(item)}>
+						<TouchableHighlight onPress={() => handleCurrentTrack(item)}>
 							<Track track={item} playing={currentTrack.id === item.id} />
-						</TouchableOpacity>
+						</TouchableHighlight>
 					)}
 				/>
 			) : (

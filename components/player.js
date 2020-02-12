@@ -2,24 +2,31 @@ import React, { useState, useContext } from 'react';
 import {
 	View,
 	StyleSheet,
-	TouchableOpacity,
+	TouchableWithoutFeedback,
 	ProgressBarAndroid,
 	Text
 } from 'react-native';
+import { Audio } from 'expo-av';
 import { FontAwesome } from '@expo/vector-icons/';
 
 import { PlayerContext } from './context';
 import { getTime } from './util';
 
+const soundObject = new Audio.Sound();
+
 const Player = () => {
-	const [play, setPlay] = useState(false);
+	const [isOn, setIsOn] = useState(false);
 	const { currentTrack } = useContext(PlayerContext);
 
 	const { title_short, duration, name } = currentTrack;
 	const { mins, fSecs } = getTime(duration);
 
-	const togglePlayer = () => {
-		setPlay(!play);
+	const togglePlayer = async () => {
+		setIsOn(!isOn);
+		// await soundObject.loadAsync({
+		// 	uri: 'https://www.deezer.com/en/track/530231361'
+		// });
+		// await soundObject.playAsync();
 	};
 	return (
 		<View style={s.container}>
@@ -28,7 +35,7 @@ const Player = () => {
 					styleAttr='Horizontal'
 					color='#2196F3'
 					indeterminate={false}
-					progress={0.2}
+					progress={1}
 					style={{ width: '82%' }}
 				/>
 				<Text style={{ color: '#0A474D' }}>
@@ -36,31 +43,31 @@ const Player = () => {
 				</Text>
 			</View>
 			<View style={s.media}>
-				<TouchableOpacity>
+				<TouchableWithoutFeedback>
 					<FontAwesome
 						style={s.backward}
 						name='step-backward'
 						size={32}
 						color='#0A474D'
 					/>
-				</TouchableOpacity>
-				<TouchableOpacity style={{ width: 100, alignItems: 'center' }}>
+				</TouchableWithoutFeedback>
+				<TouchableWithoutFeedback style={{ width: 100, alignItems: 'center' }}>
 					<FontAwesome
 						style={s.play}
-						name={play ? 'pause-circle' : 'play-circle'}
+						name={isOn ? 'pause-circle' : 'play-circle'}
 						size={56}
 						color='#0A474D'
 						onPress={togglePlayer}
 					/>
-				</TouchableOpacity>
-				<TouchableOpacity>
+				</TouchableWithoutFeedback>
+				<TouchableWithoutFeedback>
 					<FontAwesome
 						style={s.forward}
 						name='step-forward'
 						size={32}
 						color='#0A474D'
 					/>
-				</TouchableOpacity>
+				</TouchableWithoutFeedback>
 			</View>
 			<View style={s.info}>
 				<Text style={{ fontSize: 16, color: '#0A474D', width: '65%' }}>
